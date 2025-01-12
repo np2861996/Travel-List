@@ -1,38 +1,120 @@
-.App {
+/* General Styling */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f0f8ff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Logo */
+.logo {
+  font-size: 2.5rem;
+  color: #ff6347;
+  margin-bottom: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Form Styling */
+.form-container {
+  margin-bottom: 20px;
+}
+
+.add-frm {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 10px;
+}
+
+.add-frm h2 {
+  margin: 0;
+  color: #2e8b57;
+}
+
+.add-frm select,
+.add-frm input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.add-btn {
+  padding: 10px 15px;
+  background-color: #2e8b57;
   color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.App-link {
-  color: #61dafb;
+.add-btn:hover {
+  background-color: #228b22;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* List Styling */
+.list-container {
+  margin-top: 20px;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #fafafa;
+  transition: transform 0.2s;
+}
+
+.list-item:hover {
+  transform: translateY(-3px);
+}
+
+.item-description {
+  font-size: 1.1rem;
+}
+
+.remove-btn {
+  padding: 5px 10px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+  background-color: #e53e3e;
+}
+
+/* Stats */
+.stats {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #2e8b57;
 }

@@ -4,16 +4,18 @@ import "./App.css";
 const initialItems = [
   { id: 1, Description: "Passports", Quanity: 2, Packed: false },
   { id: 2, Description: "Socks", Quanity: 4, Packed: true },
-  { id: 3, Description: "Shootcase", Quanity: 4, Packed: false },
+  { id: 3, Description: "Suitcase", Quanity: 1, Packed: false },
 ];
 
 function App() {
+  const [items, setItems] = useState(initialItems);
+
   return (
     <div className="App">
       <Logo />
-      <Form />
-      <PackingList />
-      <Stats />
+      <Form items={items} setItems={setItems} />
+      <PackingList items={items} setItems={setItems} />
+      <Stats items={items} />
     </div>
   );
 }
@@ -21,27 +23,27 @@ function App() {
 export default App;
 
 function Logo() {
-  return <h1>💕Logo</h1>;
+  return <h1 className="logo">🌍 Trip Planner</h1>;
 }
 
-function Form() {
+function Form({ items, setItems }) {
+  const [Description, setDescription] = useState("");
+  const [Quanity, setQuanity] = useState(1);
+
   function HandleSubmit(e) {
     e.preventDefault();
 
     const newItem = { Description, Quanity, Packed: false, id: Date.now() };
-    console.log(newItem);
+    setItems([...items, newItem]);
 
     setDescription("");
     setQuanity(1);
   }
 
-  const [Description, setDescription] = useState("");
-  const [Quanity, setQuanity] = useState(1);
-
   return (
-    <div>
+    <div className="form-container">
       <form className="add-frm" onSubmit={HandleSubmit}>
-        <h2>What You need for the trip!</h2>
+        <h2>Add Items to Your Packing List</h2>
         <select
           value={Quanity}
           onChange={(e) => setQuanity(Number(e.target.value))}
@@ -55,37 +57,57 @@ function Form() {
 
         <input
           type="text"
-          placeholder="items.."
+          placeholder="Enter item description..."
           value={Description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button>Add</button>
+        <button className="add-btn">Add Item</button>
       </form>
     </div>
   );
 }
 
-function PackingList() {
+function PackingList({ items, setItems }) {
+  function HandleRemoveItem(id) {
+    setItems(items.filter((item) => item.id !== id));
+  }
+
   return (
-    <div className="list-items">
-      <ul>
-        {initialItems.map((item) => (
-          <Item item={item} key={item.id} />
+    <div className="list-container">
+      <ul className="item-list">
+        {items.map((item) => (
+          <Item item={item} key={item.id} onRemove={HandleRemoveItem} />
         ))}
       </ul>
     </div>
   );
 }
-function Item({ item }) {
+
+function Item({ item, onRemove }) {
   return (
-    <li>
-      <span style={item.Packed ? { textDecoration: "line-through" } : {}}>
+    <li className="list-item">
+      <span
+        className="item-description"
+        style={item.Packed ? { textDecoration: "line-through" } : {}}
+      >
         {item.Quanity} {item.Description}
       </span>
-      <button>X</button>
+      <button className="remove-btn" onClick={() => onRemove(item.id)}>
+        ❌
+      </button>
     </li>
   );
 }
-function Stats() {
-  return <h1>✌️Stats</h1>;
+
+function Stats({ items }) {
+  const totalItems = items.length;
+  const packedItems = items.filter((item) => item.Packed).length;
+
+  return (
+    <div className="stats">
+      <p>
+        🧳 You have packed {packedItems}/{totalItems} items!
+      </p>
+    </div>
+  );
 }
