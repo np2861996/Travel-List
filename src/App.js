@@ -106,7 +106,7 @@ function Stats({ items }) {
   return (
     <div className="stats">
       <p>
-        🧳 You have packed {packedItems}/{totalItems} items!
+        🧳 Hey, You have packed {packedItems}/{totalItems} items!
       </p>
     </div>
   );
