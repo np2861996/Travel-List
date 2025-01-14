@@ -34,6 +34,7 @@ function Form({ items, setItems }) {
     e.preventDefault();
 
     const newItem = { Description, Quanity, Packed: false, id: Date.now() };
+    console.log(newItem);
     setItems([...items, newItem]);
 
     setDescription("");
@@ -72,20 +73,38 @@ function PackingList({ items, setItems }) {
     setItems(items.filter((item) => item.id !== id));
   }
 
+  function handleToggleItem(id) {
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, Packed: !item.Packed } : item
+      )
+    );
+  }
+
   return (
     <div className="list-container">
       <ul className="item-list">
         {items.map((item) => (
-          <Item item={item} key={item.id} onRemove={HandleRemoveItem} />
+          <Item
+            item={item}
+            key={item.id}
+            onRemove={HandleRemoveItem}
+            handleToggleItem={handleToggleItem}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item, onRemove }) {
+function Item({ item, onRemove, handleToggleItem }) {
   return (
     <li className="list-item">
+      <input
+        type="checkbox"
+        value={item.packed}
+        onChange={() => handleToggleItem(item.id)}
+      />
       <span
         className="item-description"
         style={item.Packed ? { textDecoration: "line-through" } : {}}
