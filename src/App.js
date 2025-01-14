@@ -73,6 +73,7 @@ function PackingList({ items, setItems }) {
     setItems(items.filter((item) => item.id !== id));
   }
 
+  //Add Line
   function handleToggleItem(id) {
     setItems((items) =>
       items.map((item) =>
